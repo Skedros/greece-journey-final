@@ -119,7 +119,7 @@ button { font-family: inherit; }
   justify-content: center; align-items: center; text-align: center;
 }
 
-.reveal { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.reveal { display: inline-block; overflow: hidden; vertical-align: bottom; padding: 0.05em 0.15em 0.05em 0; }
 .reveal__inner {
   display: inline-block;
   transform: translateY(110%);
@@ -143,7 +143,8 @@ button { font-family: inherit; }
 .slide.is-active .fade-up[data-d="2"] { transition-delay: 0.9s; }
 .slide.is-active .fade-up[data-d="3"] { transition-delay: 1.1s; }
 .slide.is-active .fade-up[data-d="4"] { transition-delay: 1.3s; }
-.slide.is-active .fade-up[data-d="5"] { transition-delay: 1.5s; }
+.slide.is-active .fade-up[data-d="5"] { transition-delay: 1.6s; }
+.slide.is-active .fade-up[data-d="6"] { transition-delay: 1.8s; }
 
 .kicker {
   font-family: 'Inter', sans-serif;
@@ -690,6 +691,25 @@ button { font-family: inherit; }
 
 /* ===== FINALE ===== */
 .finale-slide .slide__inner { justify-content: center; align-items: center; text-align: center; }
+
+.finale-title {
+  font-size: clamp(48px, 8.5vw, 120px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  max-width: 100%;
+  word-break: keep-all;
+}
+.finale-title__br {
+  display: block;
+  height: 0;
+  width: 100%;
+}
+.finale-italic {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 400;
+  padding-right: 0.06em;
+}
 
 .finale-stats {
   display: flex; gap: clamp(40px, 8vw, 120px);
@@ -1669,8 +1689,11 @@ function buildSlide(data, idx) {
   } else if (data.type === 'finale') {
     inner.innerHTML = `
       <div class="title-mark fade-up" data-d="0">Καλό ταξίδι</div>
-      <h2 class="title-main" style="font-size: clamp(52px, 9vw, 130px);">
-        ${revealHTML('See you', 1)}<br>${revealHTML('in', 1)} <span class="italic">${revealHTML('Greece', 2)}</span>
+      <h2 class="title-main finale-title">
+        <span class="reveal" data-d="1"><span class="reveal__inner">See you</span></span>
+        <span class="finale-title__br"></span>
+        <span class="reveal" data-d="1"><span class="reveal__inner">in</span></span>
+        <span class="reveal" data-d="2"><span class="reveal__inner finale-italic">Greece</span></span>
       </h2>
       <div class="finale-stats">
         <div class="stat"><span class="stat__num">16</span><span class="stat__label">Days</span></div>
@@ -1678,8 +1701,8 @@ function buildSlide(data, idx) {
         <div class="stat"><span class="stat__num">12</span><span class="stat__label">Travelers</span></div>
         <div class="stat"><span class="stat__num"><span class="italic">∞</span></span><span class="stat__label">Memories</span></div>
       </div>
-      <div class="intro-line fade-up" data-d="5" style="opacity: 1; margin-bottom: 32px;">June 6 — June 21, 2026</div>
-      <div class="fade-up" data-d="5"><a class="cta-button" href="https://skedros.github.io/Greece/">Back to trip site</a></div>
+      <div class="intro-line fade-up" data-d="5" style="margin-bottom: 32px;">June 6 to June 21, 2026</div>
+      <div class="fade-up" data-d="6"><a class="cta-button" href="https://skedros.github.io/Greece/">Back to trip site</a></div>
     `;
   }
 
