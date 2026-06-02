@@ -1,0 +1,1786 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Hellas 2026, The Skedros Family Journey</title>
+<meta name="description" content="A cinematic preview of the Skedros family journey through Athens, Chios, and Crete in June 2026." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://upload.wikimedia.org" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --abyss: #050d18;
+  --depth: #0a1929;
+  --depth-warm: #1a1610;
+  --sand: #f5ead8;
+  --cream: #fbf3e3;
+  --gold: #d4a574;
+  --gold-glow: #e8c895;
+  --gold-deep: #b58850;
+  --terracotta: #b85432;
+  --aegean: #1f4e78;
+  --white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%; overflow: hidden;
+  background: var(--abyss); color: var(--sand);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+
+#stage { position: fixed; inset: 0; overflow: hidden; }
+
+.slide {
+  position: absolute; inset: 0;
+  opacity: 0; pointer-events: none;
+  transition: opacity 1.6s cubic-bezier(.4, 0, .2, 1);
+  z-index: 1;
+}
+
+.slide.is-active { opacity: 1; pointer-events: auto; z-index: 2; }
+
+#grain {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 65;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center; background-repeat: no-repeat;
+  /* Fallback gradient for when image fails to load */
+  background-color: var(--depth);
+  background-image: linear-gradient(135deg, var(--depth) 0%, var(--depth-warm) 100%);
+  transform: scale(1.01);
+  transition: transform 24s cubic-bezier(.5, 0, .5, 1);
+  will-change: transform;
+}
+
+.slide.is-active .hero-bg { transform: scale(1.15); }
+
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(5, 13, 24, 0.4) 0%,
+    rgba(5, 13, 24, 0.55) 35%,
+    rgba(5, 13, 24, 0.85) 75%,
+    rgba(5, 13, 24, 0.96) 100%
+  );
+}
+
+.hero-overlay-side {
+  position: absolute; inset: 0;
+  background: linear-gradient(100deg,
+    rgba(5, 13, 24, 0.7) 0%,
+    rgba(5, 13, 24, 0.3) 40%,
+    transparent 70%
+  );
+}
+
+.slide__inner {
+  position: relative; z-index: 3;
+  width: 100%; height: 100%;
+  padding: clamp(40px, 6vh, 80px) clamp(28px, 6vw, 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.slide.is-center .slide__inner {
+  justify-content: center; align-items: center; text-align: center;
+}
+
+.reveal { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.reveal__inner {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 1.1s cubic-bezier(.65, 0, .3, 1);
+}
+
+.slide.is-active .reveal[data-d="0"] .reveal__inner { transition-delay: 0.3s; transform: translateY(0); }
+.slide.is-active .reveal[data-d="1"] .reveal__inner { transition-delay: 0.45s; transform: translateY(0); }
+.slide.is-active .reveal[data-d="2"] .reveal__inner { transition-delay: 0.6s; transform: translateY(0); }
+.slide.is-active .reveal[data-d="3"] .reveal__inner { transition-delay: 0.8s; transform: translateY(0); }
+.slide.is-active .reveal[data-d="4"] .reveal__inner { transition-delay: 1.0s; transform: translateY(0); }
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+.slide.is-active .fade-up { opacity: 1; transform: translateY(0); }
+.slide.is-active .fade-up[data-d="0"] { transition-delay: 0.5s; }
+.slide.is-active .fade-up[data-d="1"] { transition-delay: 0.7s; }
+.slide.is-active .fade-up[data-d="2"] { transition-delay: 0.9s; }
+.slide.is-active .fade-up[data-d="3"] { transition-delay: 1.1s; }
+.slide.is-active .fade-up[data-d="4"] { transition-delay: 1.3s; }
+.slide.is-active .fade-up[data-d="5"] { transition-delay: 1.5s; }
+
+.kicker {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(11px, 0.9vw, 14px);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.36em;
+  color: var(--gold);
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: clamp(20px, 2.5vh, 32px);
+}
+.kicker::before {
+  content: ''; display: inline-block;
+  width: 40px; height: 1px; background: var(--gold);
+}
+
+.title {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: clamp(52px, 10vw, 156px);
+  line-height: 0.88;
+  letter-spacing: -0.035em;
+  color: var(--white);
+  margin-bottom: clamp(20px, 2.6vh, 36px);
+  max-width: 1180px;
+}
+.title .italic { font-style: italic; font-weight: 400; color: var(--gold); }
+
+.subline {
+  font-family: 'Fraunces', serif;
+  font-weight: 300; font-style: italic;
+  font-size: clamp(18px, 2.2vw, 30px);
+  line-height: 1.42;
+  color: var(--cream);
+  margin-bottom: clamp(20px, 2.4vh, 32px);
+  max-width: 720px;
+}
+
+.dates {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(13px, 1vw, 16px);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sand);
+  opacity: 0.8;
+}
+
+/* ===== INTRO ===== */
+.intro-slide { background: radial-gradient(ellipse at center, var(--depth) 0%, var(--abyss) 80%); }
+
+.intro-greek {
+  font-family: 'Fraunces', serif;
+  font-weight: 200; font-style: italic;
+  font-size: clamp(64px, 12vw, 180px);
+  letter-spacing: 0.04em;
+  color: var(--gold);
+  display: flex; gap: 0.05em;
+  margin-bottom: clamp(20px, 3vh, 40px);
+}
+
+.intro-greek span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px) rotateX(-30deg);
+  transition: opacity 1s cubic-bezier(.65,0,.3,1), transform 1s cubic-bezier(.65,0,.3,1);
+}
+
+.slide.is-active .intro-greek span { opacity: 1; transform: translateY(0) rotateX(0); }
+.slide.is-active .intro-greek span:nth-child(1) { transition-delay: 0.4s; }
+.slide.is-active .intro-greek span:nth-child(2) { transition-delay: 0.55s; }
+.slide.is-active .intro-greek span:nth-child(3) { transition-delay: 0.7s; }
+.slide.is-active .intro-greek span:nth-child(4) { transition-delay: 0.85s; }
+.slide.is-active .intro-greek span:nth-child(5) { transition-delay: 1.0s; }
+
+.intro-line {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(13px, 1.1vw, 17px);
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--sand);
+  opacity: 0;
+  transition: opacity 1.2s ease 1.8s;
+  margin-bottom: clamp(50px, 7vh, 90px);
+}
+.slide.is-active .intro-line { opacity: 0.7; }
+
+.intro-cta-wrap { opacity: 0; transition: opacity 1s ease 2.6s; }
+.slide.is-active .intro-cta-wrap { opacity: 1; }
+
+.cta-button {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 18px 36px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  border-radius: 0;
+}
+.cta-button:hover { background: var(--gold); color: var(--depth); letter-spacing: 0.36em; }
+.cta-button::after { content: '→'; display: inline-block; transition: transform 0.4s ease; font-size: 16px; }
+.cta-button:hover::after { transform: translateX(8px); }
+
+/* ===== TITLE CARD ===== */
+.title-card .slide__inner { justify-content: center; align-items: center; text-align: center; }
+
+.title-mark {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 300;
+  font-size: clamp(13px, 1.1vw, 17px);
+  letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: clamp(24px, 4vh, 40px);
+}
+
+.title-main {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: clamp(64px, 13vw, 200px);
+  line-height: 0.86;
+  letter-spacing: -0.04em;
+  color: var(--white);
+  margin-bottom: clamp(16px, 2vh, 30px);
+}
+
+.title-year {
+  font-family: 'Fraunces', serif;
+  font-weight: 200; font-style: italic;
+  font-size: clamp(36px, 7vw, 110px);
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: clamp(36px, 5vh, 60px);
+}
+
+.title-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 32px;
+  border: 1px solid rgba(212, 165, 116, 0.35);
+  border-radius: 4px;
+  background: rgba(212, 165, 116, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.countdown-num {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: clamp(28px, 3vw, 42px);
+  color: var(--gold);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--sand);
+  opacity: 0.85;
+}
+
+/* ===== TRAVELERS ===== */
+.travelers-slide { background: linear-gradient(180deg, var(--depth) 0%, var(--abyss) 100%); }
+.travelers-slide .slide__inner { justify-content: center; align-items: center; text-align: center; }
+
+.travelers-section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.4em;
+  color: var(--gold);
+  margin-bottom: clamp(20px, 3vh, 36px);
+}
+
+.travelers-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 500; font-style: italic;
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: clamp(36px, 6vh, 72px);
+  max-width: 880px;
+}
+.travelers-title .italic { font-style: italic; color: var(--gold); font-weight: 400; }
+
+.travelers-grid {
+  display: flex; flex-direction: column;
+  align-items: center;
+  gap: clamp(28px, 4vh, 48px);
+}
+
+.travelers-family-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  opacity: 0.8;
+}
+
+.travelers-row {
+  display: flex; gap: clamp(12px, 1.6vw, 22px);
+  justify-content: center; flex-wrap: wrap;
+  max-width: 1100px;
+}
+
+.traveler {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: clamp(17px, 1.7vw, 24px);
+  color: var(--cream);
+  padding: 10px 20px;
+  border: 1px solid rgba(245, 234, 216, 0.18);
+  border-radius: 100px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease, background 0.4s ease, color 0.4s ease;
+  white-space: nowrap;
+}
+
+.slide.is-active .traveler { opacity: 1; transform: translateY(0); }
+.slide.is-active .traveler:nth-child(1) { transition-delay: 0.5s; }
+.slide.is-active .traveler:nth-child(2) { transition-delay: 0.6s; }
+.slide.is-active .traveler:nth-child(3) { transition-delay: 0.7s; }
+.slide.is-active .traveler:nth-child(4) { transition-delay: 0.8s; }
+.slide.is-active .traveler:nth-child(5) { transition-delay: 0.9s; }
+.slide.is-active .traveler:nth-child(6) { transition-delay: 1.0s; }
+.slide.is-active .traveler:nth-child(7) { transition-delay: 1.1s; }
+.slide.is-active .traveler:nth-child(8) { transition-delay: 1.2s; }
+.slide.is-active .traveler:nth-child(9) { transition-delay: 1.3s; }
+.slide.is-active .traveler:nth-child(10) { transition-delay: 1.4s; }
+.slide.is-active .traveler:nth-child(11) { transition-delay: 1.5s; }
+.slide.is-active .traveler:nth-child(12) { transition-delay: 1.6s; }
+
+.traveler:hover {
+  background: rgba(212, 165, 116, 0.12);
+  color: var(--gold-glow);
+  border-color: var(--gold);
+}
+
+/* ===== MAP ===== */
+.map-slide { background: linear-gradient(180deg, var(--depth) 0%, var(--abyss) 100%); }
+.map-slide .slide__inner { justify-content: center; align-items: center; text-align: center; }
+
+.map-stage {
+  width: clamp(280px, 60vw, 780px);
+  height: clamp(220px, 55vh, 560px);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.map-stage svg { width: 100%; height: 100%; }
+
+.map-title-row {
+  display: flex; align-items: center; gap: 18px;
+  margin-bottom: clamp(20px, 3vh, 36px);
+}
+
+.map-title-row__city {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: clamp(24px, 3vw, 42px);
+  color: var(--sand);
+  letter-spacing: -0.01em;
+}
+
+.map-title-row__arrow { color: var(--gold); font-size: 24px; opacity: 0.6; }
+.map-title-row__active { color: var(--gold); }
+
+.map-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--sand);
+  opacity: 0.6;
+  margin-top: clamp(20px, 3vh, 36px);
+}
+
+/* ===== DETAIL ===== */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  width: 100%;
+  max-width: 1280px;
+}
+
+.detail-block__label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.detail-block__label::before {
+  content: ''; display: inline-block;
+  width: 20px; height: 1px; background: var(--gold);
+}
+
+.detail-block__name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: clamp(30px, 3.6vw, 52px);
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+.detail-block__address {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 300;
+  font-size: clamp(16px, 1.5vw, 21px);
+  color: var(--cream);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  opacity: 0.85;
+}
+
+.detail-block__note {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: clamp(13px, 1vw, 15px);
+  color: var(--sand);
+  line-height: 1.7;
+  opacity: 0.78;
+  max-width: 480px;
+}
+
+.highlights-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+
+.highlights-list li {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(18px, 1.7vw, 24px);
+  line-height: 1.35;
+  color: var(--cream);
+  padding-left: 32px;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.slide.is-active .highlights-list li { opacity: 1; transform: translateX(0); }
+.slide.is-active .highlights-list li:nth-child(1) { transition-delay: 0.9s; }
+.slide.is-active .highlights-list li:nth-child(2) { transition-delay: 1.05s; }
+.slide.is-active .highlights-list li:nth-child(3) { transition-delay: 1.2s; }
+.slide.is-active .highlights-list li:nth-child(4) { transition-delay: 1.35s; }
+
+.highlights-list li::before {
+  content: ''; position: absolute;
+  left: 0; top: 0.72em;
+  width: 18px; height: 1px; background: var(--gold);
+}
+
+.highlights-list li .light {
+  color: var(--sand); opacity: 0.6;
+  font-style: italic;
+  font-size: 0.82em;
+  display: block; margin-top: 4px;
+  font-weight: 300;
+}
+
+/* ===== QUOTE ===== */
+.quote-slide .slide__inner { justify-content: center; align-items: center; text-align: center; }
+
+.quote-mark {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 200;
+  font-size: clamp(80px, 14vw, 200px);
+  color: var(--gold);
+  line-height: 0.8;
+  margin-bottom: clamp(-20px, -2vh, -30px);
+  opacity: 0.4;
+}
+
+.quote-text {
+  font-family: 'Fraunces', serif;
+  font-weight: 300; font-style: italic;
+  font-size: clamp(28px, 4vw, 56px);
+  line-height: 1.3;
+  color: var(--white);
+  max-width: 1080px;
+  margin-bottom: clamp(28px, 4vh, 48px);
+  letter-spacing: -0.005em;
+}
+
+.quote-attribution {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+}
+
+/* ===== GALLERY ===== */
+.gallery-slide .slide__inner {
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery-content {
+  width: 100%;
+  max-width: 1280px;
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: clamp(28px, 4vh, 48px);
+}
+
+.gallery-kicker {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: clamp(12px, 2vh, 20px);
+}
+
+.gallery-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(28px, 4vw, 52px);
+  line-height: 1.1;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
+.gallery-title .italic {
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(10px, 1.4vw, 16px);
+}
+
+.gallery-item {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  border: 1px solid rgba(212, 165, 116, 0.18);
+}
+
+.slide.is-active .gallery-item { opacity: 1; transform: translateY(0); }
+.slide.is-active .gallery-item:nth-child(1) { transition-delay: 0.7s; }
+.slide.is-active .gallery-item:nth-child(2) { transition-delay: 0.85s; }
+.slide.is-active .gallery-item:nth-child(3) { transition-delay: 1.0s; }
+.slide.is-active .gallery-item:nth-child(4) { transition-delay: 1.15s; }
+.slide.is-active .gallery-item:nth-child(5) { transition-delay: 1.3s; }
+
+.gallery-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 8s cubic-bezier(.4, 0, .4, 1);
+}
+
+.gallery-item:hover .gallery-photo {
+  transform: scale(1.06);
+}
+
+.gallery-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    transparent 40%,
+    rgba(5, 13, 24, 0.85) 100%
+  );
+}
+
+.gallery-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 22px;
+  right: 22px;
+  z-index: 2;
+}
+
+.gallery-caption__name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(16px, 1.5vw, 22px);
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.gallery-caption__sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.9;
+}
+
+@media (max-width: 720px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .gallery-item { aspect-ratio: 16/9; }
+}
+
+
+.flourish {
+  position: absolute;
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 200;
+  font-size: clamp(160px, 24vw, 380px);
+  color: rgba(212, 165, 116, 0.06);
+  pointer-events: none;
+  z-index: 1;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  right: 4vw; top: 6vh;
+}
+
+/* ===== FINALE ===== */
+.finale-slide .slide__inner { justify-content: center; align-items: center; text-align: center; }
+
+.finale-stats {
+  display: flex; gap: clamp(40px, 8vw, 120px);
+  margin: clamp(40px, 6vh, 70px) 0;
+  justify-content: center; flex-wrap: wrap;
+}
+
+.stat {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide.is-active .stat { opacity: 1; transform: translateY(0); }
+.slide.is-active .stat:nth-child(1) { transition-delay: 1.0s; }
+.slide.is-active .stat:nth-child(2) { transition-delay: 1.15s; }
+.slide.is-active .stat:nth-child(3) { transition-delay: 1.3s; }
+.slide.is-active .stat:nth-child(4) { transition-delay: 1.45s; }
+
+.stat__num {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: clamp(54px, 7vw, 100px);
+  line-height: 1;
+  color: var(--white);
+  display: block;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+
+.stat__num .italic { font-style: italic; color: var(--gold); font-weight: 400; }
+
+.stat__label {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--sand);
+  opacity: 0.7;
+}
+
+/* ===== UI ===== */
+#progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%;
+  background: var(--gold);
+  z-index: 100;
+  transition: width 0.6s cubic-bezier(.4, 0, .2, 1);
+}
+
+#counter {
+  position: fixed;
+  top: clamp(20px, 3vh, 36px);
+  right: clamp(20px, 3vw, 40px);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.22em;
+  color: var(--sand);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: 50;
+}
+#counter.is-visible { opacity: 0.7; }
+#counter__current { color: var(--gold); }
+
+#brand {
+  position: fixed;
+  top: clamp(20px, 3vh, 36px);
+  left: clamp(20px, 3vw, 40px);
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--sand);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: 50;
+}
+#brand.is-visible { opacity: 0.55; }
+#brand:hover { opacity: 1; }
+
+.nav-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(44px, 4vw, 60px);
+  height: clamp(44px, 4vw, 60px);
+  background: rgba(245, 234, 216, 0.04);
+  border: 1px solid rgba(212, 165, 116, 0.28);
+  color: var(--sand);
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 60;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.5s ease, background 0.3s ease, transform 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.nav-arrow.is-visible { opacity: 0.4; }
+.nav-arrow:hover { opacity: 1; background: rgba(212, 165, 116, 0.18); }
+
+#nav-prev { left: clamp(16px, 2vw, 32px); }
+#nav-next { right: clamp(16px, 2vw, 32px); }
+#nav-prev:hover { transform: translateY(-50%) translateX(-4px); }
+#nav-next:hover { transform: translateY(-50%) translateX(4px); }
+
+#dots {
+  position: fixed;
+  bottom: clamp(20px, 3vh, 36px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 7px;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+#dots.is-visible { opacity: 1; }
+
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(245, 234, 216, 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.dot:hover { background: rgba(245, 234, 216, 0.55); }
+.dot.is-active { background: var(--gold); width: 26px; border-radius: 3px; }
+
+#loader {
+  position: fixed; inset: 0;
+  background: var(--abyss);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200;
+  transition: opacity 1s ease;
+}
+#loader.is-hidden { opacity: 0; pointer-events: none; }
+
+.loader-pulse {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 300;
+  font-size: 24px;
+  letter-spacing: 0.36em; text-transform: uppercase;
+  color: var(--gold);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.letterbox {
+  position: fixed; left: 0; right: 0;
+  height: 28px;
+  background: var(--abyss);
+  z-index: 70;
+  pointer-events: none;
+}
+.letterbox-top { top: 0; }
+.letterbox-bottom { bottom: 0; }
+
+#hint {
+  position: fixed;
+  bottom: 70px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sand);
+  opacity: 0;
+  z-index: 50;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  white-space: nowrap;
+}
+#hint.is-visible { opacity: 0.45; animation: fadeOutHint 5s ease 2.5s forwards; }
+
+@keyframes fadeOutHint { to { opacity: 0; } }
+
+.route-path {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  opacity: 0;
+  transition: stroke-dashoffset 2.5s ease 0.5s, opacity 0.6s ease;
+}
+
+.slide.is-active .route-path { stroke-dashoffset: 0; opacity: 0.9; }
+
+.city-marker { opacity: 0; transition: opacity 0.5s ease; }
+.slide.is-active .city-marker--athens { opacity: 1; transition-delay: 0.5s; }
+.slide.is-active .city-marker--chios { opacity: 1; transition-delay: 1.2s; }
+.slide.is-active .city-marker--chania { opacity: 1; transition-delay: 1.9s; }
+
+.city-marker__circle { fill: var(--gold); }
+.city-marker__pulse {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  transform-origin: center;
+  animation: marker-pulse 2.2s ease-out infinite;
+}
+
+@keyframes marker-pulse {
+  0% { r: 8; opacity: 1; }
+  100% { r: 22; opacity: 0; }
+}
+
+.city-marker__active .city-marker__circle { fill: var(--white); }
+
+.city-marker__label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  fill: var(--cream);
+}
+
+/* ===== DECORATIVE BACKGROUND ELEMENTS ===== */
+.deco-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.deco-bg svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* Greek key (meander) border on certain slides */
+.meander-top, .meander-bottom {
+  position: absolute;
+  left: 0; right: 0;
+  height: 32px;
+  background-repeat: repeat-x;
+  background-position: center;
+  opacity: 0.25;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.meander-top {
+  top: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='32' viewBox='0 0 80 32'%3E%3Cpath d='M0 16 H10 V6 H30 V26 H50 V6 H70 V16 H80' fill='none' stroke='%23d4a574' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+.meander-bottom {
+  bottom: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='32' viewBox='0 0 80 32'%3E%3Cpath d='M0 16 H10 V6 H30 V26 H50 V6 H70 V16 H80' fill='none' stroke='%23d4a574' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+/* Floating dust particles for ambient detail (replaces windmill) */
+.dust {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0;
+  animation: dust-float 18s linear infinite;
+  filter: blur(0.5px);
+}
+
+.dust:nth-child(1) { left: 12%; animation-delay: 0s; animation-duration: 22s; }
+.dust:nth-child(2) { left: 28%; animation-delay: 3s; animation-duration: 26s; }
+.dust:nth-child(3) { left: 45%; animation-delay: 6s; animation-duration: 20s; }
+.dust:nth-child(4) { left: 62%; animation-delay: 9s; animation-duration: 24s; }
+.dust:nth-child(5) { left: 78%; animation-delay: 12s; animation-duration: 28s; }
+.dust:nth-child(6) { left: 90%; animation-delay: 15s; animation-duration: 22s; }
+
+@keyframes dust-float {
+  0% { bottom: -10px; opacity: 0; transform: translateX(0); }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.4; }
+  100% { bottom: 110%; opacity: 0; transform: translateX(40px); }
+}
+
+/* Decorative column silhouettes on quote slides */
+.column-deco {
+  position: absolute;
+  bottom: 0;
+  width: 60px;
+  height: 70%;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.column-deco--left { left: 4%; }
+.column-deco--right { right: 4%; }
+
+/* Sun rays on map overview */
+.sun-rays {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  opacity: 0.1;
+  pointer-events: none;
+  animation: rays-spin 80s linear infinite;
+}
+
+@keyframes rays-spin {
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+
+  .slide__inner { padding-bottom: 90px; }
+  #counter, #brand { font-size: 11px; }
+  #counter { right: 16px; top: 16px; }
+  #brand { left: 16px; top: 16px; }
+  .nav-arrow { width: 40px; height: 40px; }
+  .letterbox { height: 14px; }
+  .finale-stats { gap: 28px; }
+  .travelers-row { gap: 8px; }
+  .traveler { font-size: 14px; padding: 7px 14px; }
+  .title { font-size: clamp(40px, 11vw, 88px) !important; }
+  .title-main { font-size: clamp(54px, 14vw, 110px) !important; }
+}
+
+body.at-intro #nav-prev { opacity: 0 !important; pointer-events: none; }
+</style>
+</head>
+<body class="at-intro">
+
+<div id="loader">
+  <div class="loader-pulse">Hellas</div>
+</div>
+
+<div id="grain"></div>
+<div id="progress-bar"></div>
+<a id="brand" href="https://skedros.github.io/Greece/" title="Back to trip site">The Skedros Journey</a>
+<div id="counter"><span id="counter__current">01</span> / <span id="counter__total">20</span></div>
+
+<div id="stage"></div>
+
+<button class="nav-arrow" id="nav-prev" aria-label="Previous slide">‹</button>
+<button class="nav-arrow" id="nav-next" aria-label="Next slide">›</button>
+
+<div id="dots"></div>
+
+<div id="hint">Click anywhere or press → to continue</div>
+
+<div class="letterbox letterbox-top"></div>
+<div class="letterbox letterbox-bottom"></div>
+
+<script>
+const TRIP_START = new Date('2026-06-06T00:00:00');
+const NOW = new Date();
+const DAYS_UNTIL = Math.max(0, Math.ceil((TRIP_START - NOW) / (1000 * 60 * 60 * 24)));
+
+const TRAVELERS = {
+  skedros: ['John Skedros', 'Maria Skedros', 'Athan Skedros', 'Piper Kinkead', 'Gigi Skedros', 'Alex Millet', 'Kinzie Shoen'],
+  lohse: ['Jim Lohse', 'Heidi Lohse', 'Matt Lohse', 'Luke Lohse', 'Dana Lohse']
+};
+
+const CITY_COORDS = {
+  athens: { x: 252, y: 198 },
+  chios: { x: 332, y: 168 },
+  chania: { x: 252, y: 296 }
+};
+
+const SLIDES = [
+  { type: 'intro' },
+  { type: 'title-card', bg: 'images/cape-sounion.jpg' },
+  { type: 'travelers' },
+  { type: 'map-overview' },
+  {
+    type: 'hero',
+    bg: 'images/acropolis.jpg',
+    kicker: 'Chapter One', titleMain: 'Athens', titleItalic: ', the arrival',
+    subline: 'Marble light, evening tavernas, the Acropolis under a Mediterranean sky. Four nights to land, settle, and remember what 2,500 years of stone looks like.',
+    dates: 'June 6 — June 9, 2026',
+    flourish: 'α', activeCity: 'athens'
+  },
+  {
+    type: 'detail',
+    bg: 'images/anafiotika.jpg',
+    kicker: 'Where we sleep',
+    leftLabel: 'The Apartment', leftName: 'Alke Homme',
+    leftAddress: 'Lempesi 6, Makrygianni\nAthens',
+    leftNote: 'A three-bedroom Vrbo for the first leg, two blocks from the Acropolis Museum and a five-minute walk to the south slope. Quiet street, balcony evenings, marble metro a block away.',
+    rightLabel: 'The Plan',
+    highlights: [
+      { main: 'Acropolis at 8am', light: 'Monday, dawn entry' },
+      { main: 'Walk Plaka & Anafiotika', light: 'Cycladic streets in the city' },
+      { main: 'Cape Sounion at sunset', light: 'Temple of Poseidon, last big day' }
+    ]
+  },
+  {
+    type: 'quote',
+    bg: 'images/temple-zeus.jpg',
+    quote: 'There is no Athens of the past. Only an Athens that has been remembered, walked, and lived in for so long it has become a question rather than a place.',
+    attribution: 'A first impression'
+  },
+  {
+    type: 'gallery',
+    kicker: 'More from Athens',
+    title: 'The <span class="italic">city</span> beyond the marble',
+    photos: [
+      { src: 'images/anafiotika.jpg', name: 'Anafiotika', sub: 'Cycladic in the city' },
+      { src: 'images/plaka.jpg', name: 'Plaka by night', sub: 'Evening tavernas' },
+      { src: 'images/lycabettus.jpg', name: 'Lycabettus', sub: 'The high view' },
+      { src: 'images/monastiraki.jpg', name: 'Monastiraki', sub: 'Sunday flea market' },
+      { src: 'images/hadrians-library.jpg', name: "Hadrian's Library", sub: 'Roman Athens' }
+    ]
+  },
+  {
+    type: 'map-interlude',
+    fromCity: 'Athens', toCity: 'Chios',
+    distance: '230 km', flightTime: '45 min',
+    activeCity: 'chios', showCities: ['athens', 'chios']
+  },
+  {
+    type: 'hero',
+    bg: 'images/pyrgi.jpg',
+    kicker: 'Chapter Two', titleMain: 'Chios', titleItalic: ', the mastic island',
+    subline: 'The quiet Aegean. Geometric villages painted in black and white, monastery mosaics older than most countries, and beaches with no name on the map.',
+    dates: 'June 9 — June 14, 2026',
+    flourish: 'χ', activeCity: 'chios'
+  },
+  {
+    type: 'detail',
+    bg: 'images/nea-moni.jpg',
+    kicker: 'Where we sleep',
+    leftLabel: 'The Hotel', leftName: 'Grecian Castle',
+    leftAddress: 'Enoseos Avenue\nChios 82100',
+    leftNote: 'A 19th-century stone hotel on the waterfront, ten minutes from the airport and a short walk to the medieval kastro. Garden pool, sea-view rooms, breakfast on the terrace.',
+    rightLabel: 'Five days',
+    highlights: [
+      { main: 'Nea Moni mosaics', light: 'mountain monastery, 11th c.' },
+      { main: 'Mastic villages', light: 'Pyrgi and Mesta, in the south' },
+      { main: 'Volissos beaches', light: 'empty coves on the northwest' }
+    ]
+  },
+  {
+    type: 'quote',
+    bg: 'images/chios-harbor.jpg',
+    quote: 'No cruise ships. No crowds. Mastic gum in every shop window and the smell of grilled octopus drifting up from the harbor every night.',
+    attribution: 'On Chios'
+  },
+  {
+    type: 'gallery',
+    kicker: 'More from Chios',
+    title: 'Stone villages and <span class="italic">empty coves</span>',
+    photos: [
+      { src: 'images/pyrgi.jpg', name: 'Pyrgi', sub: 'Geometric facades' },
+      { src: 'images/nea-moni.jpg', name: 'Nea Moni', sub: '11th century mosaics' },
+      { src: 'images/chios-harbor.jpg', name: 'Chios Harbor', sub: 'Waterfront evenings' },
+      { src: 'images/mesta.jpg', name: 'Mesta', sub: 'Medieval kastrochori' },
+      { src: 'images/chios-landscape.jpg', name: 'Mastic country', sub: 'Southern groves' }
+    ]
+  },
+  {
+    type: 'map-interlude',
+    fromCity: 'Chios', toCity: 'Chania',
+    distance: '430 km', flightTime: '1 hr 5 min',
+    activeCity: 'chania', showCities: ['athens', 'chios', 'chania']
+  },
+  {
+    type: 'hero',
+    bg: 'images/chania-harbor.jpg',
+    kicker: 'Chapter Three', titleMain: 'Crete', titleItalic: ', the wild south',
+    subline: 'Chania at golden hour. Pink sand at Elafonisi. A gorge that takes six hours to walk and a thousand years to forget. The largest island, the longest stories.',
+    dates: 'June 14 — June 19, 2026',
+    flourish: 'κ', activeCity: 'chania'
+  },
+  {
+    type: 'detail',
+    bg: 'images/samaria-gorge.jpg',
+    kicker: 'Where we sleep',
+    leftLabel: 'Two Villas', leftName: 'Villa Dioni & Agioi Apostoloi',
+    leftAddress: 'Kato Daratso (7) and Drakonianou (5)\nChania, Crete',
+    leftNote: 'The group of twelve splits between two villas in the western Chania suburbs. Both five-night stays, both walking distance to beaches, both a short drive from the Old Town and the Samaria trailhead.',
+    rightLabel: 'Five days',
+    highlights: [
+      { main: 'Balos Lagoon', light: 'turquoise shallows, day trip' },
+      { main: 'Samaria Gorge', light: 'six-hour hike, hikers only' },
+      { main: 'Elafonisi pink sand', light: 'westernmost beach' }
+    ]
+  },
+  {
+    type: 'quote',
+    bg: 'images/balos-lagoon.jpg',
+    quote: 'Where the Venetians left lighthouses and the Minoans left labyrinths. Where every meal involves olive oil pressed within ten miles.',
+    attribution: 'On Crete'
+  },
+  {
+    type: 'gallery',
+    kicker: 'More from Crete',
+    title: 'The largest island, <span class="italic">the longest stories</span>',
+    photos: [
+      { src: 'images/chania-harbor.jpg', name: 'Chania Harbor', sub: 'Venetian lighthouse' },
+      { src: 'images/samaria-gorge.jpg', name: 'Samaria Gorge', sub: 'Six hours, one day' },
+      { src: 'images/balos-lagoon.jpg', name: 'Balos Lagoon', sub: 'Turquoise shallows' },
+      { src: 'images/elafonisi.jpg', name: 'Elafonisi', sub: 'Pink sand, west coast' },
+      { src: 'images/chania-old-town.jpg', name: 'Old Town', sub: 'Venetian alleys' }
+    ]
+  },
+  {
+    type: 'hero',
+    bg: 'images/plaka.jpg',
+    kicker: 'Chapter Four', titleMain: 'Athens', titleItalic: ', one last sunset',
+    subline: 'Back to where it started, but different now. Cape Sounion at dusk, dinner in Psyrri, a last morning coffee in Koukaki.',
+    dates: 'June 19 — June 21, 2026',
+    flourish: 'ω', activeCity: 'athens'
+  },
+  {
+    type: 'finale',
+    bg: 'images/lycabettus.jpg'
+  }
+];
+
+const stage = document.getElementById('stage');
+const progressBar = document.getElementById('progress-bar');
+const counter = document.getElementById('counter');
+const counterCurrent = document.getElementById('counter__current');
+const counterTotal = document.getElementById('counter__total');
+const brand = document.getElementById('brand');
+const navPrev = document.getElementById('nav-prev');
+const navNext = document.getElementById('nav-next');
+const dotsContainer = document.getElementById('dots');
+const hint = document.getElementById('hint');
+const loader = document.getElementById('loader');
+
+let currentSlide = 0;
+const totalSlides = SLIDES.length;
+counterTotal.textContent = String(totalSlides).padStart(2, '0');
+
+function revealHTML(text, delay = 0) {
+  return `<span class="reveal" data-d="${delay}"><span class="reveal__inner">${text}</span></span>`;
+}
+
+function buildMapSVG(opts) {
+  const { activeCity, drawRoute, showAll, citiesShown } = opts;
+  const a = CITY_COORDS.athens;
+  const c = CITY_COORDS.chios;
+  const ch = CITY_COORDS.chania;
+
+  let routeD;
+  if (showAll) {
+    routeD = `M${a.x} ${a.y} Q${c.x - 10} ${c.y - 20} ${c.x} ${c.y} Q${c.x - 80} ${c.y + 80} ${ch.x} ${ch.y} Q${ch.x + 10} ${ch.y - 60} ${a.x} ${a.y}`;
+  } else if (citiesShown && citiesShown.includes('chania')) {
+    routeD = `M${c.x} ${c.y} Q${c.x - 80} ${c.y + 80} ${ch.x} ${ch.y}`;
+  } else {
+    routeD = `M${a.x} ${a.y} Q${c.x - 10} ${c.y - 20} ${c.x} ${c.y}`;
+  }
+
+  return `
+    <svg viewBox="0 0 480 380" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(31, 78, 120, 0.18)" />
+          <stop offset="100%" stop-color="rgba(10, 25, 41, 0.05)" />
+        </linearGradient>
+        <linearGradient id="landGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(212, 165, 116, 0.22)" />
+          <stop offset="100%" stop-color="rgba(184, 84, 50, 0.18)" />
+        </linearGradient>
+      </defs>
+      <rect width="480" height="380" fill="url(#seaGrad)" rx="4" />
+      <path d="M180 110 L195 102 L215 100 L235 104 L252 110 L268 118 L282 128 L292 142 L296 158 L288 174 L278 188 L268 198 L252 198 L240 205 L228 210 L218 220 L210 232 L202 240 L192 234 L188 220 L180 208 L172 198 L168 184 L172 168 L178 152 L182 138 L184 122 Z" fill="url(#landGrad)" stroke="rgba(212, 165, 116, 0.4)" stroke-width="0.8" />
+      <path d="M192 234 L182 244 L172 252 L168 264 L172 274 L180 280 L188 282 L196 276 L204 268 L208 256 L210 244 Z" fill="url(#landGrad)" stroke="rgba(212, 165, 116, 0.4)" stroke-width="0.8" />
+      <path d="M270 132 L286 130 L300 138 L306 152 L300 164 L290 170 L278 168 L268 158 Z" fill="url(#landGrad)" stroke="rgba(212, 165, 116, 0.4)" stroke-width="0.8" />
+      <path d="M324 154 L342 152 L350 162 L348 178 L338 184 L326 180 L320 168 Z" fill="url(#landGrad)" stroke="rgba(212, 165, 116, 0.4)" stroke-width="0.8" />
+      <path d="M320 120 L338 118 L346 128 L342 138 L328 138 L318 132 Z" fill="url(#landGrad)" stroke="rgba(212, 165, 116, 0.4)" stroke-width="0.6" opacity="0.7" />
+      <circle cx="265" cy="220" r="2.5" fill="rgba(212, 165, 116, 0.3)" />
+      <circle cx="278" cy="232" r="2" fill="rgba(212, 165, 116, 0.3)" />
+      <circle cx="290" cy="248" r="2.5" fill="rgba(212, 165, 116, 0.3)" />
+      <circle cx="270" cy="248" r="1.8" fill="rgba(212, 165, 116, 0.3)" />
+      <circle cx="298" cy="232" r="1.5" fill="rgba(212, 165, 116, 0.3)" />
+      <circle cx="285" cy="258" r="2" fill="rgba(212, 165, 116, 0.3)" />
+      <path d="M180 286 L210 282 L240 284 L268 286 L296 286 L320 290 L334 296 L324 302 L302 304 L278 302 L250 304 L222 302 L196 300 L178 296 Z" fill="url(#landGrad)" stroke="rgba(212, 165, 116, 0.4)" stroke-width="0.8" />
+      <path class="route-path" d="${routeD}" />
+      <g class="city-marker city-marker--athens ${activeCity === 'athens' ? 'city-marker__active' : ''}">
+        <circle class="city-marker__pulse" cx="${a.x}" cy="${a.y}" />
+        <circle class="city-marker__circle" cx="${a.x}" cy="${a.y}" r="5" />
+        <text class="city-marker__label" x="${a.x - 12}" y="${a.y - 12}" text-anchor="end">Athens</text>
+      </g>
+      <g class="city-marker city-marker--chios ${activeCity === 'chios' ? 'city-marker__active' : ''}">
+        <circle class="city-marker__pulse" cx="${c.x}" cy="${c.y}" />
+        <circle class="city-marker__circle" cx="${c.x}" cy="${c.y}" r="5" />
+        <text class="city-marker__label" x="${c.x + 12}" y="${c.y - 6}">Chios</text>
+      </g>
+      <g class="city-marker city-marker--chania ${activeCity === 'chania' ? 'city-marker__active' : ''}">
+        <circle class="city-marker__pulse" cx="${ch.x}" cy="${ch.y}" />
+        <circle class="city-marker__circle" cx="${ch.x}" cy="${ch.y}" r="5" />
+        <text class="city-marker__label" x="${ch.x}" y="${ch.y + 22}" text-anchor="middle">Chania</text>
+      </g>
+    </svg>
+  `;
+}
+
+function makeDecoBg(type) {
+  /* Returns decorative SVG background HTML for non-photo slides */
+  const dustHtml = `
+    <div class="dust"></div><div class="dust"></div><div class="dust"></div>
+    <div class="dust"></div><div class="dust"></div><div class="dust"></div>
+  `;
+
+  if (type === 'intro') {
+    return `
+      <div class="deco-bg">
+        <!-- Layered radial gradients for depth -->
+        <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;">
+          <defs>
+            <radialGradient id="introGlow" cx="0.5" cy="0.4" r="0.6">
+              <stop offset="0%" stop-color="rgba(212,165,116,0.18)" />
+              <stop offset="60%" stop-color="rgba(31,78,120,0.06)" />
+              <stop offset="100%" stop-color="transparent" />
+            </radialGradient>
+          </defs>
+          <rect width="1920" height="1080" fill="url(#introGlow)" />
+          <!-- Faint Greek temple silhouette -->
+          <g opacity="0.06" transform="translate(660, 700)">
+            <rect x="0" y="240" width="600" height="20" fill="#d4a574" />
+            <rect x="0" y="80" width="600" height="20" fill="#d4a574" />
+            <rect x="20" y="100" width="20" height="140" fill="#d4a574" />
+            <rect x="80" y="100" width="20" height="140" fill="#d4a574" />
+            <rect x="140" y="100" width="20" height="140" fill="#d4a574" />
+            <rect x="200" y="100" width="20" height="140" fill="#d4a574" />
+            <rect x="260" y="100" width="20" height="140" fill="#d4a574" />
+            <rect x="320" y="100" width="20" height="140" fill="#d4a574" />
+            <rect x="380" y="100" width="20" height="140" fill="#d4a574" />
+            <rect x="440" y="100" width="20" height="140" fill="#d4a574" />
+            <rect x="500" y="100" width="20" height="140" fill="#d4a574" />
+            <rect x="560" y="100" width="20" height="140" fill="#d4a574" />
+            <polygon points="0,80 300,0 600,80" fill="#d4a574" />
+          </g>
+          <!-- Stars -->
+          <g fill="#d4a574" opacity="0.6">
+            <circle cx="200" cy="120" r="1.2" />
+            <circle cx="350" cy="80" r="1" />
+            <circle cx="480" cy="180" r="1.5" />
+            <circle cx="640" cy="60" r="1" />
+            <circle cx="820" cy="160" r="1.2" />
+            <circle cx="1100" cy="90" r="1.3" />
+            <circle cx="1280" cy="140" r="1" />
+            <circle cx="1440" cy="80" r="1.4" />
+            <circle cx="1620" cy="180" r="1" />
+            <circle cx="1780" cy="120" r="1.2" />
+          </g>
+        </svg>
+        ${dustHtml}
+      </div>
+      <div class="meander-top"></div>
+      <div class="meander-bottom"></div>
+    `;
+  }
+
+  if (type === 'travelers') {
+    return `
+      <div class="deco-bg">
+        <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;">
+          <!-- Olive branch top-left -->
+          <g transform="translate(80, 100) rotate(-20)" opacity="0.12">
+            <path d="M0 0 Q100 -10 200 0 Q150 -5 100 -2 Q50 0 0 0" stroke="#d4a574" stroke-width="1.5" fill="none" />
+            <ellipse cx="20" cy="-3" rx="14" ry="5" fill="#d4a574" transform="rotate(-15 20 -3)" />
+            <ellipse cx="55" cy="-8" rx="14" ry="5" fill="#d4a574" transform="rotate(-25 55 -8)" />
+            <ellipse cx="95" cy="-10" rx="14" ry="5" fill="#d4a574" transform="rotate(-15 95 -10)" />
+            <ellipse cx="140" cy="-8" rx="14" ry="5" fill="#d4a574" transform="rotate(-25 140 -8)" />
+            <ellipse cx="180" cy="-5" rx="14" ry="5" fill="#d4a574" transform="rotate(-15 180 -5)" />
+          </g>
+          <!-- Olive branch bottom-right (mirrored) -->
+          <g transform="translate(1820, 980) rotate(160)" opacity="0.12">
+            <path d="M0 0 Q100 -10 200 0 Q150 -5 100 -2 Q50 0 0 0" stroke="#d4a574" stroke-width="1.5" fill="none" />
+            <ellipse cx="20" cy="-3" rx="14" ry="5" fill="#d4a574" transform="rotate(-15 20 -3)" />
+            <ellipse cx="55" cy="-8" rx="14" ry="5" fill="#d4a574" transform="rotate(-25 55 -8)" />
+            <ellipse cx="95" cy="-10" rx="14" ry="5" fill="#d4a574" transform="rotate(-15 95 -10)" />
+            <ellipse cx="140" cy="-8" rx="14" ry="5" fill="#d4a574" transform="rotate(-25 140 -8)" />
+            <ellipse cx="180" cy="-5" rx="14" ry="5" fill="#d4a574" transform="rotate(-15 180 -5)" />
+          </g>
+          <!-- Subtle grid of dots -->
+          <g fill="#d4a574" opacity="0.08">
+            <circle cx="100" cy="540" r="2" />
+            <circle cx="300" cy="540" r="2" />
+            <circle cx="500" cy="540" r="2" />
+            <circle cx="700" cy="540" r="2" />
+            <circle cx="900" cy="540" r="2" />
+            <circle cx="1100" cy="540" r="2" />
+            <circle cx="1300" cy="540" r="2" />
+            <circle cx="1500" cy="540" r="2" />
+            <circle cx="1700" cy="540" r="2" />
+          </g>
+        </svg>
+        ${dustHtml}
+      </div>
+    `;
+  }
+
+  if (type === 'map-overview' || type === 'map-interlude') {
+    return `
+      <div class="deco-bg">
+        <svg class="sun-rays" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#d4a574" stroke-width="0.6" opacity="0.4">
+            ${Array.from({length: 24}, (_, i) => {
+              const angle = (i * 15) * Math.PI / 180;
+              const x2 = 300 + Math.cos(angle) * 290;
+              const y2 = 300 + Math.sin(angle) * 290;
+              return `<line x1="300" y1="300" x2="${x2}" y2="${y2}" />`;
+            }).join('')}
+          </g>
+        </svg>
+        ${dustHtml}
+      </div>
+    `;
+  }
+
+  if (type === 'finale') {
+    return `
+      <div class="deco-bg">
+        <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;">
+          <!-- Constellation -->
+          <g fill="#d4a574" opacity="0.7">
+            <circle cx="180" cy="180" r="2" />
+            <circle cx="280" cy="240" r="1.5" />
+            <circle cx="420" cy="160" r="2.5" />
+            <circle cx="540" cy="220" r="1.5" />
+            <circle cx="680" cy="180" r="2" />
+            <circle cx="1340" cy="200" r="1.8" />
+            <circle cx="1480" cy="160" r="2.2" />
+            <circle cx="1620" cy="240" r="1.5" />
+            <circle cx="1740" cy="180" r="2" />
+            <circle cx="1820" cy="280" r="1.5" />
+          </g>
+          <g stroke="#d4a574" stroke-width="0.5" opacity="0.25">
+            <line x1="180" y1="180" x2="280" y2="240" />
+            <line x1="280" y1="240" x2="420" y2="160" />
+            <line x1="420" y1="160" x2="540" y2="220" />
+            <line x1="540" y1="220" x2="680" y2="180" />
+            <line x1="1340" y1="200" x2="1480" y2="160" />
+            <line x1="1480" y1="160" x2="1620" y2="240" />
+            <line x1="1620" y1="240" x2="1740" y2="180" />
+          </g>
+        </svg>
+        ${dustHtml}
+      </div>
+      <div class="meander-top"></div>
+      <div class="meander-bottom"></div>
+    `;
+  }
+
+  if (type === 'quote') {
+    return `
+      <svg class="column-deco column-deco--left" viewBox="0 0 60 400" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="0" width="40" height="20" fill="#d4a574" />
+        <rect x="14" y="20" width="32" height="360" fill="#d4a574" />
+        <rect x="0" y="380" width="60" height="20" fill="#d4a574" />
+        <line x1="20" y1="30" x2="20" y2="370" stroke="#000" stroke-width="0.5" opacity="0.2" />
+        <line x1="30" y1="30" x2="30" y2="370" stroke="#000" stroke-width="0.5" opacity="0.2" />
+        <line x1="40" y1="30" x2="40" y2="370" stroke="#000" stroke-width="0.5" opacity="0.2" />
+      </svg>
+      <svg class="column-deco column-deco--right" viewBox="0 0 60 400" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="0" width="40" height="20" fill="#d4a574" />
+        <rect x="14" y="20" width="32" height="360" fill="#d4a574" />
+        <rect x="0" y="380" width="60" height="20" fill="#d4a574" />
+        <line x1="20" y1="30" x2="20" y2="370" stroke="#000" stroke-width="0.5" opacity="0.2" />
+        <line x1="30" y1="30" x2="30" y2="370" stroke="#000" stroke-width="0.5" opacity="0.2" />
+        <line x1="40" y1="30" x2="40" y2="370" stroke="#000" stroke-width="0.5" opacity="0.2" />
+      </svg>
+    `;
+  }
+
+  return '';
+}
+
+function buildSlide(data, idx) {
+  const slide = document.createElement('div');
+  slide.className = 'slide';
+  slide.dataset.idx = idx;
+
+  if (data.type === 'intro') slide.classList.add('intro-slide', 'is-center');
+  if (data.type === 'title-card') slide.classList.add('title-card', 'is-center');
+  if (data.type === 'travelers') slide.classList.add('travelers-slide', 'is-center');
+  if (data.type === 'map-overview' || data.type === 'map-interlude') slide.classList.add('map-slide', 'is-center');
+  if (data.type === 'quote') slide.classList.add('quote-slide', 'is-center');
+  if (data.type === 'gallery') slide.classList.add('gallery-slide', 'is-center');
+  if (data.type === 'finale') slide.classList.add('finale-slide', 'is-center');
+
+  if (data.bg) {
+    const bg = document.createElement('div');
+    bg.className = 'hero-bg';
+    bg.style.backgroundImage = `url('${data.bg}')`;
+    /* Test the image: if it fails, fall back to a gradient + label so the slide is still beautiful */
+    const tester = new Image();
+    tester.onload = function() {
+      bg.classList.add('hero-bg--loaded');
+    };
+    tester.onerror = function() {
+      bg.style.backgroundImage = 'linear-gradient(135deg, var(--depth) 0%, var(--depth-warm) 60%, var(--terracotta) 130%)';
+      bg.classList.add('hero-bg--fallback');
+    };
+    tester.src = data.bg;
+    slide.appendChild(bg);
+    const overlay = document.createElement('div');
+    overlay.className = 'hero-overlay';
+    slide.appendChild(overlay);
+    if (data.type === 'hero' || data.type === 'detail') {
+      const side = document.createElement('div');
+      side.className = 'hero-overlay-side';
+      slide.appendChild(side);
+    }
+  }
+
+  /* Inject decorative SVG background for non-photo slide types (or layered on quote slides) */
+  const deco = makeDecoBg(data.type);
+  if (deco) {
+    const decoWrap = document.createElement('div');
+    decoWrap.innerHTML = deco;
+    while (decoWrap.firstChild) slide.appendChild(decoWrap.firstChild);
+  }
+
+  if (data.flourish) {
+    const f = document.createElement('div');
+    f.className = 'flourish';
+    f.textContent = data.flourish;
+    slide.appendChild(f);
+  }
+
+  const inner = document.createElement('div');
+  inner.className = 'slide__inner';
+
+  if (data.type === 'intro') {
+    inner.innerHTML = `
+      <div class="intro-greek">
+        <span>Ε</span><span>Λ</span><span>Λ</span><span>Α</span><span>Σ</span>
+      </div>
+      <div class="intro-line">A Journey · Summer · 2026</div>
+      <div class="intro-cta-wrap">
+        <button class="cta-button" data-action="next">Begin</button>
+      </div>
+    `;
+  } else if (data.type === 'title-card') {
+    inner.innerHTML = `
+      <div class="title-mark fade-up" data-d="0">Hellas</div>
+      <h1 class="title-main">${revealHTML('The Skedros', 0)}<br>${revealHTML('Family Journey', 1)}</h1>
+      <div class="title-year fade-up" data-d="2">2026</div>
+      <div class="fade-up" data-d="3">
+        <div class="title-countdown">
+          <span class="countdown-num" id="countdown-num">${DAYS_UNTIL}</span>
+          <span class="countdown-label">${DAYS_UNTIL === 1 ? 'day until takeoff' : 'days until takeoff'}</span>
+        </div>
+      </div>
+    `;
+  } else if (data.type === 'travelers') {
+    const skRow = TRAVELERS.skedros.map(n => `<span class="traveler">${n}</span>`).join('');
+    const loRow = TRAVELERS.lohse.map(n => `<span class="traveler">${n}</span>`).join('');
+    inner.innerHTML = `
+      <div class="travelers-section-label fade-up" data-d="0">The Skedros/Lohse Family</div>
+      <h2 class="travelers-title fade-up" data-d="1">Twelve travelers, <span class="italic">one journey</span></h2>
+      <div class="travelers-grid">
+        <div>
+          <div class="travelers-family-label fade-up" data-d="2">Skedros</div>
+          <div class="travelers-row">${skRow}</div>
+        </div>
+        <div>
+          <div class="travelers-family-label fade-up" data-d="3">Lohse</div>
+          <div class="travelers-row">${loRow}</div>
+        </div>
+      </div>
+    `;
+  } else if (data.type === 'map-overview') {
+    inner.innerHTML = `
+      <div class="travelers-section-label fade-up" data-d="0">The Route</div>
+      <h2 class="travelers-title fade-up" data-d="1" style="margin-bottom: clamp(28px, 4vh, 48px);">Sixteen days, <span class="italic">three islands,</span> one Aegean arc</h2>
+      <div class="map-stage">
+        ${buildMapSVG({ activeCity: null, drawRoute: true, showAll: true })}
+      </div>
+      <div class="map-meta fade-up" data-d="3">Athens · Chios · Chania · Athens</div>
+    `;
+  } else if (data.type === 'map-interlude') {
+    inner.innerHTML = `
+      <div class="travelers-section-label fade-up" data-d="0">Now flying</div>
+      <div class="map-title-row fade-up" data-d="1">
+        <span class="map-title-row__city">${data.fromCity}</span>
+        <span class="map-title-row__arrow">→</span>
+        <span class="map-title-row__city map-title-row__active">${data.toCity}</span>
+      </div>
+      <div class="map-stage">
+        ${buildMapSVG({ activeCity: data.activeCity, drawRoute: true, showAll: false, citiesShown: data.showCities })}
+      </div>
+      <div class="map-meta fade-up" data-d="3">${data.distance} · ${data.flightTime}</div>
+    `;
+  } else if (data.type === 'hero') {
+    inner.innerHTML = `
+      <div class="kicker fade-up" data-d="0">${data.kicker}</div>
+      <h2 class="title">
+        ${revealHTML(data.titleMain, 1)}<span class="italic">${revealHTML(data.titleItalic, 2)}</span>
+      </h2>
+      <p class="subline fade-up" data-d="3">${data.subline}</p>
+      <div class="dates fade-up" data-d="4">${data.dates}</div>
+    `;
+  } else if (data.type === 'detail') {
+    const highlightsHtml = data.highlights.map(h =>
+      `<li>${h.main}<span class="light">${h.light}</span></li>`
+    ).join('');
+    inner.innerHTML = `
+      <div class="kicker fade-up" data-d="0">${data.kicker}</div>
+      <div class="detail-grid">
+        <div class="detail-block fade-up" data-d="1">
+          <div class="detail-block__label">${data.leftLabel}</div>
+          <div class="detail-block__name">${data.leftName}</div>
+          <div class="detail-block__address">${data.leftAddress.replace('\n', '<br>')}</div>
+          <p class="detail-block__note">${data.leftNote}</p>
+        </div>
+        <div class="detail-block fade-up" data-d="2">
+          <div class="detail-block__label">${data.rightLabel}</div>
+          <ul class="highlights-list">${highlightsHtml}</ul>
+        </div>
+      </div>
+    `;
+  } else if (data.type === 'quote') {
+    inner.innerHTML = `
+      <div class="quote-mark fade-up" data-d="0">"</div>
+      <div class="quote-text fade-up" data-d="1">${data.quote}</div>
+      <div class="quote-attribution fade-up" data-d="2">— ${data.attribution}</div>
+    `;
+  } else if (data.type === 'gallery') {
+    const photosHtml = data.photos.map((p, pi) => `
+      <div class="gallery-item">
+        <div class="gallery-photo" data-photo-idx="${pi}" data-photo-src="${p.src}" data-photo-name="${p.name}"></div>
+        <div class="gallery-photo-overlay"></div>
+        <div class="gallery-caption">
+          <div class="gallery-caption__name">${p.name}</div>
+          <div class="gallery-caption__sub">${p.sub}</div>
+        </div>
+      </div>
+    `).join('');
+    inner.innerHTML = `
+      <div class="gallery-content">
+        <div class="gallery-header">
+          <div class="gallery-kicker fade-up" data-d="0">${data.kicker}</div>
+          <h2 class="gallery-title fade-up" data-d="1">${data.title}</h2>
+        </div>
+        <div class="gallery-grid">${photosHtml}</div>
+      </div>
+    `;
+    /* Test each gallery photo and fall back to gradient if it fails */
+    setTimeout(() => {
+      slide.querySelectorAll('.gallery-photo').forEach(ph => {
+        const src = ph.dataset.photoSrc;
+        const tester = new Image();
+        tester.onload = () => { ph.style.backgroundImage = `url('${src}')`; };
+        tester.onerror = () => {
+          ph.style.backgroundImage = 'linear-gradient(135deg, var(--depth) 0%, var(--terracotta) 100%)';
+          ph.classList.add('gallery-photo--fallback');
+        };
+        tester.src = src;
+      });
+    }, 0);
+  } else if (data.type === 'finale') {
+    inner.innerHTML = `
+      <div class="title-mark fade-up" data-d="0">Καλό ταξίδι</div>
+      <h2 class="title-main" style="font-size: clamp(52px, 9vw, 130px);">
+        ${revealHTML('See you', 1)}<br>${revealHTML('in', 1)} <span class="italic">${revealHTML('Greece', 2)}</span>
+      </h2>
+      <div class="finale-stats">
+        <div class="stat"><span class="stat__num">16</span><span class="stat__label">Days</span></div>
+        <div class="stat"><span class="stat__num"><span class="italic">3</span></span><span class="stat__label">Islands</span></div>
+        <div class="stat"><span class="stat__num">12</span><span class="stat__label">Travelers</span></div>
+        <div class="stat"><span class="stat__num"><span class="italic">∞</span></span><span class="stat__label">Memories</span></div>
+      </div>
+      <div class="intro-line fade-up" data-d="5" style="opacity: 1; margin-bottom: 32px;">June 6 — June 21, 2026</div>
+      <div class="fade-up" data-d="5"><a class="cta-button" href="https://skedros.github.io/Greece/">Back to trip site</a></div>
+    `;
+  }
+
+  slide.appendChild(inner);
+  return slide;
+}
+
+SLIDES.forEach((data, idx) => stage.appendChild(buildSlide(data, idx)));
+
+SLIDES.forEach((_, idx) => {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  d.dataset.idx = idx;
+  d.addEventListener('click', () => goTo(idx));
+  dotsContainer.appendChild(d);
+});
+
+function goTo(idx) {
+  if (idx < 0 || idx >= totalSlides) return;
+  currentSlide = idx;
+
+  document.querySelectorAll('.slide').forEach((s, i) => {
+    s.classList.toggle('is-active', i === idx);
+  });
+
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('is-active', i === idx);
+  });
+
+  const pct = ((idx + 1) / totalSlides) * 100;
+  progressBar.style.width = pct + '%';
+  counterCurrent.textContent = String(idx + 1).padStart(2, '0');
+
+  const data = SLIDES[idx];
+
+  if (data.type === 'intro') {
+    document.body.classList.add('at-intro');
+    counter.classList.remove('is-visible');
+    brand.classList.remove('is-visible');
+    navPrev.classList.remove('is-visible');
+    dotsContainer.classList.remove('is-visible');
+  } else {
+    document.body.classList.remove('at-intro');
+    counter.classList.add('is-visible');
+    brand.classList.add('is-visible');
+    if (idx > 0) navPrev.classList.add('is-visible');
+    dotsContainer.classList.add('is-visible');
+  }
+
+  if (idx === totalSlides - 1) {
+    navNext.classList.remove('is-visible');
+  } else {
+    navNext.classList.add('is-visible');
+  }
+
+  const next = SLIDES[idx + 1];
+  if (next && next.bg) {
+    const pre = new Image();
+    pre.src = next.bg;
+  }
+
+  if (data.type === 'title-card') {
+    setTimeout(() => animateCountdown(DAYS_UNTIL), 1100);
+  }
+}
+
+function animateCountdown(target) {
+  const el = document.getElementById('countdown-num');
+  if (!el) return;
+  const dur = 1400;
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min((now - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(target * eased);
+    if (t < 1) requestAnimationFrame(tick);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(tick);
+}
+
+function nextSlide() { if (currentSlide < totalSlides - 1) goTo(currentSlide + 1); }
+function prevSlide() { if (currentSlide > 0) goTo(currentSlide - 1); }
+
+navNext.addEventListener('click', (e) => { e.stopPropagation(); nextSlide(); });
+navPrev.addEventListener('click', (e) => { e.stopPropagation(); prevSlide(); });
+
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.cta-button')) {
+    const btn = e.target.closest('.cta-button');
+    if (btn.dataset.action === 'next') nextSlide();
+    return;
+  }
+  if (e.target.closest('.nav-arrow') || e.target.closest('.dot') || e.target.closest('a') || e.target.closest('.traveler') || e.target.closest('.gallery-item')) return;
+  if (currentSlide === 0) return;
+  nextSlide();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(totalSlides - 1);
+});
+
+let touchStartX = 0;
+document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+document.addEventListener('touchend', (e) => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 50) { dx < 0 ? nextSlide() : prevSlide(); }
+});
+
+function preloadAll() {
+  return Promise.all(
+    SLIDES.filter(s => s.bg).slice(0, 4).map(s =>
+      new Promise(res => {
+        const img = new Image();
+        img.onload = res;
+        img.onerror = res;
+        img.src = s.bg;
+      })
+    )
+  );
+}
+
+preloadAll().then(() => {
+  setTimeout(() => {
+    loader.classList.add('is-hidden');
+    goTo(0);
+    setTimeout(() => hint.classList.add('is-visible'), 2000);
+  }, 700);
+});
+</script>
+</body>
+</html>
